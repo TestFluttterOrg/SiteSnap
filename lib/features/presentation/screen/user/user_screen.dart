@@ -73,6 +73,7 @@ class _UserForm extends StatelessWidget {
   void showEnterCodeDialog(BuildContext context) {
     AppDialog.custom(
       context,
+      barrierDismissible: false,
       child: EnterPinDialog(
         onClose: () {
           AppDialog.dismiss(context);
@@ -143,13 +144,17 @@ class _ButtonView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
     return BlocBuilder<UserBloc, UserState>(
-        buildWhen: (prev, current) => prev.isButtonEnable != current.isButtonEnable,
-        builder: (context, state) {
-          return AppButton(
-            isDisabled: !state.isButtonEnable,
-            onPressed: bloc.onEnterPress,
-            text: AppStrings.enter,
-          );
-        });
+      buildWhen: (prev, current) => prev.isButtonEnable != current.isButtonEnable,
+      builder: (context, state) {
+        return AppButton(
+          isDisabled: !state.isButtonEnable,
+          onPressed: () {
+            FocusScope.of(context).requestFocus(FocusNode());
+            bloc.onEnterPress();
+          },
+          text: AppStrings.enter,
+        );
+      },
+    );
   }
 }

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_colors.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
+import 'package:sitesnap/features/presentation/components/app_pinput.dart';
 
 class EnterPinDialog extends StatelessWidget {
   final Function() onEnter;
@@ -35,13 +36,17 @@ class EnterPinDialog extends StatelessWidget {
                         fontSize: 15.sp,
                       ),
                     ),
-                    SizedBox(height: 5.h),
+                    SizedBox(height: 10.h),
                     Text(
                       AppStrings.messageEnterPin,
                       style: TextStyle(
                         color: Colors.black,
                         fontSize: 12.3.sp,
                       ),
+                    ),
+                    SizedBox(height: 10.h),
+                    AppPinput(
+                      onTextChanged: (pinCode) {},
                     ),
                   ],
                 ),

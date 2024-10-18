@@ -24,6 +24,14 @@ class _AppPinputState extends State<AppPinput> {
   String label6 = "-";
 
   @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      FocusScope.of(context).requestFocus(_textFieldFocusNode);
+    });
+  }
+
+  @override
   void dispose() {
     _textFieldFocusNode.dispose();
     super.dispose();

@@ -24,4 +24,7 @@ class AppColors {
   static const Color buttonEnabledColor = Color(0xff4CAF50);
   static const Color buttonDisabledTextColor = Color(0xff9E9E9E);
 
+  static const Color textGreenColor = Color(0xff4CAF50);
+  static const Color textRedColor =  Color(0xffF44336);
+
 }

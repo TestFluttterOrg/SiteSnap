@@ -3,6 +3,12 @@ import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/utility/app_utility.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
 
+enum UserUIEvent {
+  initial,
+  showEnterCode,
+  goToNextPage,
+}
+
 class UserBloc extends Cubit<UserState> {
   UserBloc() : super(const UserState());
 
@@ -41,6 +47,7 @@ class UserBloc extends Cubit<UserState> {
   }
 
   void onEnterPress() {
-
+    emit(state.copyWith(event: UserUIEvent.showEnterCode));
+    emit(state.copyWith(event: UserUIEvent.initial));
   }
 }

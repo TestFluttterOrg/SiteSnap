@@ -29,38 +29,40 @@ class AppInput extends StatelessWidget {
         SizedBox(
           width: double.infinity,
           height: 40.h,
-          child: TextField(
-            maxLines: 1,
-            onChanged: onTextChanged,
-            textAlign: TextAlign.center,
-            cursorColor: AppColors.fieldCursorColor,
-            cursorHeight: 15.h,
-            style: TextStyle(
-              color: Colors.black,
-              fontWeight: FontWeight.normal,
-              fontSize: fontSize,
-            ),
-            decoration: InputDecoration(
-              isDense: true,
-              hintText: hintText,
-              hintStyle: TextStyle(
-                color: AppColors.fieldHintTextColor,
+          child: Center(
+            child: TextField(
+              maxLines: 1,
+              onChanged: onTextChanged,
+              textAlign: TextAlign.center,
+              cursorColor: AppColors.fieldCursorColor,
+              cursorHeight: 15.h,
+              style: TextStyle(
+                color: Colors.black,
                 fontWeight: FontWeight.normal,
                 fontSize: fontSize,
               ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: errorMessage.isNotEmpty ? AppColors.fieldRedBorderColor : AppColors.fieldGrayBorderColor,
-                  width: borderWidth,
+              decoration: InputDecoration(
+                isDense: true,
+                hintText: hintText,
+                hintStyle: TextStyle(
+                  color: AppColors.fieldHintTextColor,
+                  fontWeight: FontWeight.normal,
+                  fontSize: fontSize,
                 ),
-                borderRadius: BorderRadius.circular(borderRadius),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(
-                  color: errorMessage.isNotEmpty ? AppColors.fieldRedBorderColor : AppColors.fieldBlueBorderColor,
-                  width: borderWidth,
+                enabledBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: errorMessage.isNotEmpty ? AppColors.fieldRedBorderColor : AppColors.fieldGrayBorderColor,
+                    width: borderWidth,
+                  ),
+                  borderRadius: BorderRadius.circular(borderRadius),
                 ),
-                borderRadius: BorderRadius.circular(borderRadius),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(
+                    color: errorMessage.isNotEmpty ? AppColors.fieldRedBorderColor : AppColors.fieldBlueBorderColor,
+                    width: borderWidth,
+                  ),
+                  borderRadius: BorderRadius.circular(borderRadius),
+                ),
               ),
             ),
           ),

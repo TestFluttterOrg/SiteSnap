@@ -4,12 +4,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/features/presentation/components/app_button.dart';
+import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
+import 'package:sitesnap/features/presentation/screen/user/components/enter_pin_dialog.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -30,27 +32,57 @@ class _UserForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppScaffold(
-      backgroundColor: Colors.white,
-      body: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: 20.h,
-          horizontal: 60.w,
+    return BlocListener<UserBloc, UserState>(
+      child: AppScaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+          padding: EdgeInsets.symmetric(
+            vertical: 20.h,
+            horizontal: 60.w,
+          ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const _IconView(),
+              SizedBox(height: 100.h),
+              const _InputView(),
+              SizedBox(height: 10.h),
+              const _ButtonView(),
+            ],
+          ),
         ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const _IconView(),
-            SizedBox(height: 100.h),
-            const _InputView(),
-            SizedBox(height: 10.h),
-            const _ButtonView(),
-          ],
-        ),
+      ),
+      listenWhen: (prev, current) => prev.event != current.event,
+      listener: (context, state) {
+        final event = state.event;
+        switch (event) {
+          case UserUIEvent.showEnterCode:
+            showEnterCodeDialog(context);
+            break;
+          case UserUIEvent.goToNextPage:
+            goToNextPage(context);
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+
+  void showEnterCodeDialog(BuildContext context) {
+    AppDialog.custom(
+      context,
+      child: EnterPinDialog(
+        onClose: () {
+          AppDialog.dismiss(context);
+        },
+        onEnter: () {},
       ),
     );
   }
+
+  void goToNextPage(BuildContext context) {}
 }
 
 class _IconView extends StatelessWidget {
@@ -111,14 +143,13 @@ class _ButtonView extends StatelessWidget {
   Widget build(BuildContext context) {
     final bloc = context.read<UserBloc>();
     return BlocBuilder<UserBloc, UserState>(
-      buildWhen: (prev, current) => prev.isButtonEnable != current.isButtonEnable,
-      builder: (context, state) {
-        return AppButton(
-          isDisabled: !state.isButtonEnable,
-          onPressed: bloc.onEnterPress,
-          text: AppStrings.enter,
-        );
-      }
-    );
+        buildWhen: (prev, current) => prev.isButtonEnable != current.isButtonEnable,
+        builder: (context, state) {
+          return AppButton(
+            isDisabled: !state.isButtonEnable,
+            onPressed: bloc.onEnterPress,
+            text: AppStrings.enter,
+          );
+        });
   }
 }

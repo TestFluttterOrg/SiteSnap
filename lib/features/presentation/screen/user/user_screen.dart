@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
+import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
+import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
@@ -38,6 +40,7 @@ class _UserForm extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             _IconView(),
+            _InputView(),
           ],
         ),
       ),
@@ -76,3 +79,15 @@ class _IconView extends StatelessWidget {
     );
   }
 }
+
+class _InputView extends StatelessWidget {
+  const _InputView();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppInput(
+      hintText: AppStrings.username,
+    );
+  }
+}
+

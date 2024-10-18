@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
+import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
@@ -59,38 +60,18 @@ class _IconView extends StatelessWidget {
           Positioned(
             left: 0,
             top: 0,
-            child: _IconWidget(iconString: AppAssets.youtube),
+            child: AppIcon(iconString: AppAssets.youtube),
           ),
           Align(
             alignment: Alignment.center,
-            child: _IconWidget(iconString: AppAssets.spotify),
+            child: AppIcon(iconString: AppAssets.spotify),
           ),
           Positioned(
             right: 0,
             bottom: 0,
-            child: _IconWidget(iconString: AppAssets.facebook),
+            child: AppIcon(iconString: AppAssets.facebook),
           ),
         ],
-      ),
-    );
-  }
-}
-
-class _IconWidget extends StatelessWidget {
-  final String iconString;
-
-  const _IconWidget({
-    required this.iconString,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10.r),
-      child: Image.asset(
-        iconString,
-        width: 80.h,
-        height: 80.h,
       ),
     );
   }

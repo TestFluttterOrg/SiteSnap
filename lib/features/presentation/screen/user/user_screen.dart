@@ -9,6 +9,7 @@ import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
+import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
 
 class UserScreen extends StatelessWidget {
   const UserScreen({super.key});
@@ -36,13 +37,15 @@ class _UserForm extends StatelessWidget {
           vertical: 20.h,
           horizontal: 60.w,
         ),
-        child: const Column(
+        child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            _IconView(),
-            _InputView(),
-            _ButtonView(),
+            const _IconView(),
+            SizedBox(height: 100.h),
+            const _InputView(),
+            SizedBox(height: 10.h),
+            const _ButtonView(),
           ],
         ),
       ),
@@ -87,8 +90,16 @@ class _InputView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppInput(
-      hintText: AppStrings.username,
+    final bloc = context.read<UserBloc>();
+    return BlocBuilder<UserBloc, UserState>(
+      buildWhen: (prev, current) => prev.errorMessage != current.errorMessage,
+      builder: (context, state) {
+        return AppInput(
+          hintText: AppStrings.username,
+          errorMessage: state.errorMessage,
+          onTextChanged: bloc.filterEnteredText,
+        );
+      },
     );
   }
 }

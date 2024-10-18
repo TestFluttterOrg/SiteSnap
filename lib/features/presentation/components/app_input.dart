@@ -30,6 +30,8 @@ class AppInput extends StatelessWidget {
           width: double.infinity,
           height: 40.h,
           child: TextField(
+            maxLines: 1,
+            onChanged: onTextChanged,
             textAlign: TextAlign.center,
             cursorColor: AppColors.fieldCursorColor,
             cursorHeight: 15.h,
@@ -39,6 +41,7 @@ class AppInput extends StatelessWidget {
               fontSize: fontSize,
             ),
             decoration: InputDecoration(
+              isDense: true,
               hintText: hintText,
               hintStyle: TextStyle(
                 color: AppColors.fieldHintTextColor,

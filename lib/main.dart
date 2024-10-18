@@ -3,8 +3,11 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_constants.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/routes/routers.dart';
+import 'core/di/dependency_injection.dart' as di;
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
   runApp(const MyApp());
 }
 

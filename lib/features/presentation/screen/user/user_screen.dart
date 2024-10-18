@@ -109,9 +109,16 @@ class _ButtonView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AppButton(
-      onPressed: () {},
-      text: "Enter",
+    final bloc = context.read<UserBloc>();
+    return BlocBuilder<UserBloc, UserState>(
+      buildWhen: (prev, current) => prev.isButtonEnable != current.isButtonEnable,
+      builder: (context, state) {
+        return AppButton(
+          isDisabled: !state.isButtonEnable,
+          onPressed: bloc.onEnterPress,
+          text: AppStrings.enter,
+        );
+      }
     );
   }
 }

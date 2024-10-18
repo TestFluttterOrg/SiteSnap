@@ -34,8 +34,13 @@ class UserBloc extends Cubit<UserState> {
         state.copyWith(
           errorMessage: "",
           isButtonEnable: true,
+          inputData: text,
         ),
       );
     }
+  }
+
+  void onEnterPress() {
+
   }
 }

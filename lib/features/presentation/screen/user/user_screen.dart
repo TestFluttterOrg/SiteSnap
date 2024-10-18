@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
+import 'package:sitesnap/features/presentation/components/app_button.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
@@ -41,6 +42,7 @@ class _UserForm extends StatelessWidget {
           children: [
             _IconView(),
             _InputView(),
+            _ButtonView(),
           ],
         ),
       ),
@@ -91,3 +93,14 @@ class _InputView extends StatelessWidget {
   }
 }
 
+class _ButtonView extends StatelessWidget {
+  const _ButtonView();
+
+  @override
+  Widget build(BuildContext context) {
+    return AppButton(
+      onPressed: () {},
+      text: "Enter",
+    );
+  }
+}

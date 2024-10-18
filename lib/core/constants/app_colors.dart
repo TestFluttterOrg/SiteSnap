@@ -19,4 +19,9 @@ class AppColors {
   static const Color fieldErrorTextColor = Color(0xffF44336);
   static const Color fieldCursorColor = Color(0xff2196F3);
   static const Color fieldHintTextColor = Color(0xff9E9E9E);
+
+  static const Color buttonDisabledColor = Color(0xffE0E0E0);
+  static const Color buttonEnabledColor = Color(0xff4CAF50);
+  static const Color buttonDisabledTextColor = Color(0xff9E9E9E);
+
 }

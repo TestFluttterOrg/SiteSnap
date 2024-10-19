@@ -83,6 +83,10 @@ class _ProcessForm extends StatelessWidget {
           case ProcessUIEvent.goToUserScreenFromLoginFailure:
             _goToUserScreenAndShowErrorDialog(context, errorMessage);
             break;
+          case ProcessUIEvent.goToUserScreenFromLoggingOut:
+            final mainBloc = context.read<MainBloc>();
+            mainBloc.goToUserPage();
+            break;
           case ProcessUIEvent.fetchFailed:
             _showFetchDataFailed(context, errorMessage);
             break;

@@ -11,4 +11,7 @@ class AppStrings {
   static const String messageNotExceedCharLimit = "Must not exceed 24 characters";
   static const String messageVerifyItsYou = "Verify It's You";
   static const String messageEnterPin = "Please enter your 6 digit PIN";
+  static const String messageLoggingIn = "Logging In";
+  static const String messageLoggingOut = "Logging Out";
+  static const String messageFetchingData = "Fetching Data";
 }

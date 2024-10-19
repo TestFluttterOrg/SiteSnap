@@ -5,12 +5,14 @@ import 'package:go_router/go_router.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/routes/app_routes.dart';
+import 'package:sitesnap/features/domain/model/process_param_model.dart';
 import 'package:sitesnap/features/presentation/components/app_button.dart';
 import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
+import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
 import 'package:sitesnap/features/presentation/screen/user/components/enter_pin_dialog.dart';
@@ -92,7 +94,17 @@ class _UserForm extends StatelessWidget {
   }
 
   void goToNextPage(BuildContext context) {
-    context.pushReplacement(AppRoutes.process);
+    final state = context.read<UserBloc>().state;
+    final username = state.username;
+    final code = state.code;
+    context.pushReplacement(
+      AppRoutes.process,
+      extra: ProcessParamModel(
+        username: username,
+        code: code,
+        processType: ProcessType.login,
+      ),
+    );
   }
 }
 

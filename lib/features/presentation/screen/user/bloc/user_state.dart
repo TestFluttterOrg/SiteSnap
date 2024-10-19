@@ -2,26 +2,30 @@ import 'package:equatable/equatable.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 
 class UserState extends Equatable {
-  final String inputData;
+  final String username;
+  final String code;
   final String errorMessage;
   final bool isButtonEnable;
   final UserUIEvent event;
 
   const UserState({
-    this.inputData = "",
+    this.username = "",
+    this.code = "",
     this.errorMessage = "",
     this.isButtonEnable = false,
     this.event = UserUIEvent.initial,
   });
 
   UserState copyWith({
-    String? inputData,
+    String? username,
+    String? code,
     String? errorMessage,
     bool? isButtonEnable,
     UserUIEvent? event,
   }) =>
       UserState(
-        inputData: inputData ?? this.inputData,
+        username: username ?? this.username,
+        code: code ?? this.code,
         errorMessage: errorMessage ?? this.errorMessage,
         isButtonEnable: isButtonEnable ?? this.isButtonEnable,
         event: event ?? this.event,
@@ -29,7 +33,8 @@ class UserState extends Equatable {
 
   @override
   List<Object?> get props => [
-        inputData,
+        username,
+        code,
         errorMessage,
         isButtonEnable,
         event,

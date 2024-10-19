@@ -41,7 +41,7 @@ class UserBloc extends Cubit<UserState> {
         state.copyWith(
           errorMessage: "",
           isButtonEnable: true,
-          inputData: text,
+          username: text,
         ),
       );
     }
@@ -49,7 +49,12 @@ class UserBloc extends Cubit<UserState> {
 
   void verifyCode(String code) async {
     if (code.length == 6) {
-      emit(state.copyWith(event: UserUIEvent.hideDialog));
+      emit(
+        state.copyWith(
+          event: UserUIEvent.hideDialog,
+          code: code,
+        ),
+      );
       await Future.delayed(const Duration(milliseconds: 100));
       emit(state.copyWith(event: UserUIEvent.goToNextPage));
       emit(state.copyWith(event: UserUIEvent.initial));

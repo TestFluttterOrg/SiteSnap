@@ -10,6 +10,7 @@ import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_input.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
+import 'package:sitesnap/features/presentation/screen/main/bloc/main_state.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
@@ -44,6 +45,7 @@ class _UserForm extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
+            const _PageActionListener(),
             const _IconView(),
             SizedBox(height: 100.h),
             const _InputView(),
@@ -59,8 +61,11 @@ class _UserForm extends StatelessWidget {
           case UserUIEvent.showEnterCode:
             showEnterCodeDialog(context);
             break;
-          case UserUIEvent.goToNextPage:
+          case UserUIEvent.goToNextPageLoggingIn:
             goToNextPage(context);
+            break;
+          case UserUIEvent.goToNextPageFetching:
+            goToNextPageFetching(context);
             break;
           case UserUIEvent.hideDialog:
             AppDialog.dismiss(context);
@@ -98,6 +103,15 @@ class _UserForm extends StatelessWidget {
         username: username,
         otp: code,
         processType: ProcessType.login,
+      ),
+    );
+  }
+
+  void goToNextPageFetching(BuildContext context) {
+    final bloc = context.read<MainBloc>();
+    bloc.goToProcessPage(
+      const ProcessParamModel(
+        processType: ProcessType.fetch,
       ),
     );
   }
@@ -171,6 +185,26 @@ class _ButtonView extends StatelessWidget {
           },
           text: AppStrings.enter,
         );
+      },
+    );
+  }
+}
+
+class _PageActionListener extends StatelessWidget {
+  const _PageActionListener();
+
+  @override
+  Widget build(BuildContext context) {
+    final userBloc = context.read<UserBloc>();
+
+    // This will listen to the main bloc in order to know when to initialize this current screen.
+    return BlocBuilder<MainBloc, MainState>(
+      buildWhen: (prev, current) => prev.pageType != current.pageType,
+      builder: (context, state) {
+        if (state.pageType == MainPageType.user) {
+          userBloc.initialize();
+        }
+        return const SizedBox();
       },
     );
   }

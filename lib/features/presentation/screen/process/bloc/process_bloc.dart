@@ -36,7 +36,10 @@ class ProcessBloc extends Cubit<ProcessState> {
         _performLogin(data.username, data.otp);
         break;
       case ProcessType.logout:
-        _performLogout();
+        performLogout();
+        break;
+      case ProcessType.fetch:
+        performDataFetch();
         break;
       default:
         break;
@@ -44,6 +47,7 @@ class ProcessBloc extends Cubit<ProcessState> {
   }
 
   void _performLogin(String username, String otp) async {
+    emit(state.copyWith(processType: ProcessType.login));
     final result = await authRepository.login(username, otp);
     result.fold(
       (failed) {
@@ -85,7 +89,8 @@ class ProcessBloc extends Cubit<ProcessState> {
     emit(state.copyWith(event: ProcessUIEvent.initial));
   }
 
-  void _performLogout() async {
+  void performLogout() async {
+    emit(state.copyWith(processType: ProcessType.logout));
     await authRepository.logout();
     emit(state.copyWith(event: ProcessUIEvent.goToUserScreenFromLoggingOut));
     emit(state.copyWith(event: ProcessUIEvent.initial));

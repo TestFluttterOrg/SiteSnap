@@ -109,7 +109,6 @@ class _ProcessForm extends StatelessWidget {
 
   void _showFetchDataFailed(BuildContext context, String message) {
     final bloc = context.read<ProcessBloc>();
-    final mainBloc = context.read<MainBloc>();
     AppDialog.confirm(
       context,
       message: message,
@@ -121,7 +120,7 @@ class _ProcessForm extends StatelessWidget {
       },
       onCancel: () {
         AppDialog.dismiss(context);
-        mainBloc.goToUserPage();
+        bloc.performLogout();
       },
     );
   }

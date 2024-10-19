@@ -46,6 +46,8 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<void> logout() async {
+    await sharedPrefDataSource.clearData(PrefKeys.username);
+    await sharedPrefDataSource.clearData(PrefKeys.userCode);
     //Delay in 3 seconds to simulate an API call
     await Future.delayed(const Duration(seconds: 3));
   }

@@ -50,7 +50,11 @@ Future<void> init() async {
 
   //BLOC
   vf.registerLazySingleton<MainBloc>(() => MainBloc());
-  vf.registerFactory<UserBloc>(() => UserBloc());
+  vf.registerFactory<UserBloc>(
+    () => UserBloc(
+      authRepository: vf.call(),
+    ),
+  );
   vf.registerFactory<ProcessBloc>(
     () => ProcessBloc(
       authRepository: vf.call(),

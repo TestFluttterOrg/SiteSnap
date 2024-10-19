@@ -2,8 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
+import 'package:sitesnap/core/routes/app_routes.dart';
+import 'package:sitesnap/core/routes/routers.dart';
 import 'package:sitesnap/features/domain/model/process_param_model.dart';
+import 'package:sitesnap/features/domain/model/social_model.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
@@ -71,8 +75,22 @@ class _ProcessForm extends StatelessWidget {
           ],
         ),
         listenWhen: (prev, current) => prev.event != current.event,
-        listener: (BuildContext context, ProcessState state) {},
+        listener: (BuildContext context, ProcessState state) {
+          final event = state.event;
+          switch(event) {
+            case ProcessUIEvent.goToHomeScreen:
+              final data = state.otherParam as List<SocialModel>;
+              _goToHomeScreen(context, data);
+              break;
+            default:
+              break;
+          }
+        },
       ),
     );
+  }
+
+  void _goToHomeScreen(BuildContext context, List<SocialModel> data) {
+    context.pushReplacement(AppRoutes.home, extra: data);
   }
 }

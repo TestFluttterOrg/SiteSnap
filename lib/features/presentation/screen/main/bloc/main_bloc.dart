@@ -13,6 +13,7 @@ enum MainUIEvent {
   initial,
   goToUserPage,
   goToProcessPage,
+  goToProcessPageNoAnim,
   goToHomePage,
   showErrorDialog,
 }
@@ -37,11 +38,14 @@ class MainBloc extends Cubit<MainState> {
     emit(state.copyWith(event: MainUIEvent.initial));
   }
 
-  void goToProcessPage(ProcessParamModel data) {
+  void goToProcessPage(
+    ProcessParamModel data, {
+    bool withAnimation = true,
+  }) {
     emit(
       state.copyWith(
         processData: data,
-        event: MainUIEvent.goToProcessPage,
+        event: withAnimation ? MainUIEvent.goToProcessPage : MainUIEvent.goToProcessPageNoAnim,
         pageType: MainPageType.process,
       ),
     );

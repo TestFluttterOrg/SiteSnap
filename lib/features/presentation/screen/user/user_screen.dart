@@ -113,6 +113,7 @@ class _UserForm extends StatelessWidget {
       const ProcessParamModel(
         processType: ProcessType.fetch,
       ),
+      withAnimation: false,
     );
   }
 }

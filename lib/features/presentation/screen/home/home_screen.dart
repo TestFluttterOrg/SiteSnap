@@ -13,6 +13,7 @@ import 'package:sitesnap/features/presentation/screen/home/bloc/home_state.dart'
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_state.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({
@@ -36,11 +37,12 @@ class _HomeForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<HomeBloc, HomeState>(
-      child: const Column(
+      child: Column(
         children: [
-          _PageActionListener(),
-          _UserHeaderView(),
-          _IconView(),
+          const _PageActionListener(),
+          const _UserHeaderView(),
+          SizedBox(height: 30.h),
+          const _IconView(),
         ],
       ),
       listenWhen: (prev, current) => prev.event != current.event,
@@ -159,7 +161,34 @@ class _IconView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return BlocBuilder<HomeBloc, HomeState>(
+      buildWhen: (prev, current) => prev.reloadIconList != current.reloadIconList,
+      builder: (context, state) {
+        final list = context.read<HomeBloc>().socialList;
+        return Expanded(
+          child: GridView.builder(
+            padding: EdgeInsets.symmetric(horizontal: 60.w),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2, // Two columns
+              mainAxisSpacing: 60.h, // Spacing between rows
+              crossAxisSpacing: 50.w, // Spacing between columns
+            ),
+            itemCount: list.length,
+            itemBuilder: (context, index) {
+              return ClipRRect(
+                borderRadius: BorderRadius.circular(5.r),
+                child: CachedNetworkImage(
+                  imageUrl: list[index].iconUrl,
+                  width: 50.h,
+                  height: 50.h,
+                  fit: BoxFit.cover,
+                ),
+              );
+            },
+          ),
+        );
+      },
+    );
   }
 }
 

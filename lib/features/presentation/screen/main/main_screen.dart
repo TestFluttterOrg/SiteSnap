@@ -37,6 +37,9 @@ class MainScreen extends StatelessWidget {
           case MainUIEvent.goToProcessPage:
             pageController.animateToPage(1, duration: const Duration(milliseconds: 800), curve: Curves.ease);
             break;
+          case MainUIEvent.goToProcessPageNoAnim:
+            pageController.jumpToPage(1);
+            break;
           case MainUIEvent.goToHomePage:
             pageController.animateToPage(2, duration: const Duration(milliseconds: 800), curve: Curves.ease);
             break;

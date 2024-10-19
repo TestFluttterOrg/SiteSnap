@@ -18,11 +18,8 @@ class SocialDataSourceImpl extends SocialDataSource {
       final result = await client.getSocials();
       final data = result.data;
       return ResultModel(isSuccess: true, data: data);
-    } on DioException catch (e) {
-      print("DIO ERROR");
-    } catch (e) {
-      print("CATCH");
-    }
+    } on DioException catch (_) {
+    } catch (_) {}
     return const ResultModel(
       isSuccess: false,
       message: AppStrings.messageFailedToGetSocials,

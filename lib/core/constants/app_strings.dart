@@ -5,6 +5,10 @@ class AppStrings {
   static const String enter = "Enter";
   static const String close = "Close";
   static const String error = "Error";
+  static const String confirm = "Confirm";
+  static const String retry = "Retry";
+  static const String cancel = "Cancel";
+  static const String message = "Message";
 
   static const String messageValueMustBeAlphaNumeric = "Values must be alphanumeric";
   static const String messageEnterUsername = "Please enter your username";

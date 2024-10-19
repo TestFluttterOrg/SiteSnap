@@ -16,6 +16,7 @@ enum ProcessUIEvent {
   goToUserScreenFromLoginFailure,
   goToUserScreenFromLoggingOut,
   goToHomeScreen,
+  fetchFailed,
 }
 
 class ProcessBloc extends Cubit<ProcessState> {
@@ -55,16 +56,23 @@ class ProcessBloc extends Cubit<ProcessState> {
         emit(state.copyWith(event: ProcessUIEvent.initial));
       },
       (success) {
-        _performDataFetch();
+        performDataFetch();
       },
     );
   }
 
-  void _performDataFetch() async {
+  void performDataFetch() async {
     emit(state.copyWith(processType: ProcessType.fetch));
     final result = await socialRepository.getSocials();
     result.fold(
-      (failed) {},
+      (failed) {
+        emit(
+          state.copyWith(
+            event: ProcessUIEvent.fetchFailed,
+            errorMessage: failed.message,
+          ),
+        );
+      },
       (success) {
         emit(
           state.copyWith(

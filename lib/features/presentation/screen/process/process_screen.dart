@@ -7,6 +7,7 @@ import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/routes/app_routes.dart';
 import 'package:sitesnap/features/domain/model/process_param_model.dart';
 import 'package:sitesnap/features/domain/model/social_model.dart';
+import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_state.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
@@ -73,14 +74,17 @@ class _ProcessForm extends StatelessWidget {
       listenWhen: (prev, current) => prev.event != current.event,
       listener: (BuildContext context, ProcessState state) {
         final event = state.event;
+        final errorMessage = state.errorMessage;
         switch (event) {
           case ProcessUIEvent.goToHomeScreen:
             final data = state.otherParam as List<SocialModel>;
             _goToHomeScreen(context, data);
             break;
           case ProcessUIEvent.goToUserScreenFromLoginFailure:
-            final message = state.errorMessage;
-            _goToUserScreenAndShowErrorDialog(context, message);
+            _goToUserScreenAndShowErrorDialog(context, errorMessage);
+            break;
+          case ProcessUIEvent.fetchFailed:
+            _showFetchDataFailed(context, errorMessage);
             break;
           default:
             break;
@@ -97,6 +101,25 @@ class _ProcessForm extends StatelessWidget {
     final bloc = context.read<MainBloc>();
     bloc.goToUserPage();
     bloc.showErrorMessage(message);
+  }
+
+  void _showFetchDataFailed(BuildContext context, String message) {
+    final bloc = context.read<ProcessBloc>();
+    final mainBloc = context.read<MainBloc>();
+    AppDialog.confirm(
+      context,
+      message: message,
+      title: AppStrings.error,
+      confirmText: AppStrings.retry,
+      onConfirm: () {
+        AppDialog.dismiss(context);
+        bloc.performDataFetch();
+      },
+      onCancel: () {
+        AppDialog.dismiss(context);
+        mainBloc.goToUserPage();
+      },
+    );
   }
 }
 

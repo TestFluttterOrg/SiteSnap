@@ -55,7 +55,7 @@ class UserBloc extends Cubit<UserState> {
           code: code,
         ),
       );
-      await Future.delayed(const Duration(milliseconds: 100));
+      await Future.delayed(const Duration(milliseconds: 500));
       emit(state.copyWith(event: UserUIEvent.goToNextPage));
       emit(state.copyWith(event: UserUIEvent.initial));
     }

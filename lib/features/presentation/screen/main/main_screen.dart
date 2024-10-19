@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
+import 'package:sitesnap/features/presentation/screen/home/home_screen.dart';
+import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
+import 'package:sitesnap/features/presentation/screen/main/bloc/main_state.dart';
+import 'package:sitesnap/features/presentation/screen/process/process_screen.dart';
+import 'package:sitesnap/features/presentation/screen/user/user_screen.dart';
+
+class MainScreen extends StatelessWidget {
+  const MainScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final PageController pageController = PageController(initialPage: 0);
+    return BlocListener<MainBloc, MainState>(
+      child: AppScaffold(
+        backgroundColor: Colors.white,
+        body: PageView(
+          controller: pageController,
+          physics: const NeverScrollableScrollPhysics(),
+          children: const [
+            UserScreen(),
+            ProcessScreen(),
+            HomeScreen(),
+          ],
+        ),
+      ),
+      listenWhen: (prev, current) => prev.event != current.event,
+      listener: (context, state) {
+        final event = state.event;
+        switch(event) {
+          case MainUIEvent.goToUserPage:
+            pageController.animateToPage(0, duration: const Duration(milliseconds: 800), curve: Curves.ease);
+            break;
+          case MainUIEvent.goToProcessPage:
+            pageController.animateToPage(1, duration: const Duration(milliseconds: 800), curve: Curves.ease);
+            break;
+          case MainUIEvent.goToHomePage:
+            pageController.animateToPage(2, duration: const Duration(milliseconds: 800), curve: Curves.ease);
+            break;
+          default:
+            break;
+        }
+      },
+    );
+  }
+}

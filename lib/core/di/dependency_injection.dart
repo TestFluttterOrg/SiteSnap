@@ -14,6 +14,7 @@ import 'package:sitesnap/features/data/repository/auth_repository_impl.dart';
 import 'package:sitesnap/features/data/repository/social_repository_impl.dart';
 import 'package:sitesnap/features/domain/repository/auth_repository.dart';
 import 'package:sitesnap/features/domain/repository/social_repository.dart';
+import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 
@@ -47,6 +48,7 @@ Future<void> init() async {
   );
 
   //BLOC
+  vf.registerLazySingleton<MainBloc>(() => MainBloc());
   vf.registerFactory<UserBloc>(() => UserBloc());
   vf.registerFactory<ProcessBloc>(
     () => ProcessBloc(

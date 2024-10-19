@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
-import 'package:sitesnap/core/routes/app_routes.dart';
 import 'package:sitesnap/features/domain/model/process_param_model.dart';
 import 'package:sitesnap/features/presentation/components/app_button.dart';
 import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
 import 'package:sitesnap/features/presentation/components/app_input.dart';
-import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
+import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_state.dart';
@@ -37,24 +35,21 @@ class _UserForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocListener<UserBloc, UserState>(
-      child: AppScaffold(
-        backgroundColor: Colors.white,
-        body: Container(
-          padding: EdgeInsets.symmetric(
-            vertical: 20.h,
-            horizontal: 60.w,
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const _IconView(),
-              SizedBox(height: 100.h),
-              const _InputView(),
-              SizedBox(height: 10.h),
-              const _ButtonView(),
-            ],
-          ),
+      child: Container(
+        padding: EdgeInsets.symmetric(
+          vertical: 20.h,
+          horizontal: 60.w,
+        ),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            const _IconView(),
+            SizedBox(height: 100.h),
+            const _InputView(),
+            SizedBox(height: 10.h),
+            const _ButtonView(),
+          ],
         ),
       ),
       listenWhen: (prev, current) => prev.event != current.event,
@@ -97,9 +92,9 @@ class _UserForm extends StatelessWidget {
     final state = context.read<UserBloc>().state;
     final username = state.username;
     final code = state.code;
-    context.pushReplacement(
-      AppRoutes.process,
-      extra: ProcessParamModel(
+    final bloc = context.read<MainBloc>();
+    bloc.goToProcessPage(
+      ProcessParamModel(
         username: username,
         otp: code,
         processType: ProcessType.login,

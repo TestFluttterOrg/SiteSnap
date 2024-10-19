@@ -14,4 +14,5 @@ class AppStrings {
   static const String messageLoggingIn = "Logging In";
   static const String messageLoggingOut = "Logging Out";
   static const String messageFetchingData = "Fetching Data";
+  static const String messageLoginFailed = "Login Failed, please try again";
 }

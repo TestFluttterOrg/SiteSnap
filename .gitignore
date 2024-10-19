@@ -41,3 +41,8 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+lib/features/domain/entity/login/login_payload_entity.g.dart
+lib/features/domain/entity/login/login_payload_entity.freezed.dart
+lib/features/domain/entity/login/login_api_result_entity.freezed.dart
+lib/features/domain/entity/login/login_api_result_entity.g.dart
+lib/features/data/api/auth/auth_client.g.dart

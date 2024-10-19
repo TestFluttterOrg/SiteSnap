@@ -101,7 +101,7 @@ class _UserForm extends StatelessWidget {
       AppRoutes.process,
       extra: ProcessParamModel(
         username: username,
-        code: code,
+        otp: code,
         processType: ProcessType.login,
       ),
     );

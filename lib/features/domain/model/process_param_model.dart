@@ -2,12 +2,12 @@ import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.
 
 class ProcessParamModel {
   final String username;
-  final String code;
+  final String otp;
   final ProcessType processType;
 
   const ProcessParamModel({
     this.username = "",
-    this.code = "",
+    this.otp = "",
     this.processType = ProcessType.none,
   });
 }

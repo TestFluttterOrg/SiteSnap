@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/features/presentation/screen/home/home_screen.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
@@ -38,6 +39,10 @@ class MainScreen extends StatelessWidget {
             break;
           case MainUIEvent.goToHomePage:
             pageController.animateToPage(2, duration: const Duration(milliseconds: 800), curve: Curves.ease);
+            break;
+          case MainUIEvent.showErrorDialog:
+            final message = state.errorMessage;
+            AppDialog.error(context, message: message);
             break;
           default:
             break;

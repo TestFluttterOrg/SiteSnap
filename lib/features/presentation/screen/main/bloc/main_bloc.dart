@@ -27,7 +27,15 @@ class MainBloc extends Cubit<MainState> {
     emit(state.copyWith(event: MainUIEvent.initial));
   }
 
-  void goToUserPage() {}
+  void goToUserPage() {
+    emit(
+      state.copyWith(
+        pageType: MainPageType.user,
+        event: MainUIEvent.goToUserPage,
+      ),
+    );
+    emit(state.copyWith(event: MainUIEvent.initial));
+  }
 
   void goToProcessPage(ProcessParamModel data) {
     emit(
@@ -47,6 +55,16 @@ class MainBloc extends Cubit<MainState> {
       state.copyWith(
         event: MainUIEvent.goToHomePage,
         pageType: MainPageType.home,
+      ),
+    );
+    emit(state.copyWith(event: MainUIEvent.initial));
+  }
+
+  void showErrorMessage(String message) {
+    emit(
+      state.copyWith(
+        errorMessage: message,
+        event: MainUIEvent.showErrorDialog,
       ),
     );
     emit(state.copyWith(event: MainUIEvent.initial));

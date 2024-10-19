@@ -78,6 +78,10 @@ class _ProcessForm extends StatelessWidget {
             final data = state.otherParam as List<SocialModel>;
             _goToHomeScreen(context, data);
             break;
+          case ProcessUIEvent.goToUserScreenFromLoginFailure:
+            final message = state.errorMessage;
+            _goToUserScreenAndShowErrorDialog(context, message);
+            break;
           default:
             break;
         }
@@ -87,6 +91,12 @@ class _ProcessForm extends StatelessWidget {
 
   void _goToHomeScreen(BuildContext context, List<SocialModel> data) {
     context.read<MainBloc>().goToHomePage(data);
+  }
+
+  void _goToUserScreenAndShowErrorDialog(BuildContext context, String message) {
+    final bloc = context.read<MainBloc>();
+    bloc.goToUserPage();
+    bloc.showErrorMessage(message);
   }
 }
 

@@ -46,7 +46,12 @@ class ProcessBloc extends Cubit<ProcessState> {
     final result = await authRepository.login(username, otp);
     result.fold(
       (failed) {
-        emit(state.copyWith(event: ProcessUIEvent.goToUserScreenFromLoginFailure));
+        emit(
+          state.copyWith(
+            event: ProcessUIEvent.goToUserScreenFromLoginFailure,
+            errorMessage: failed.message,
+          ),
+        );
         emit(state.copyWith(event: ProcessUIEvent.initial));
       },
       (success) {

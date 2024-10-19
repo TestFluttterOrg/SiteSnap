@@ -5,7 +5,7 @@ import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/features/presentation/components/app_pinput.dart';
 
 class EnterPinDialog extends StatelessWidget {
-  final Function() onEnter;
+  final Function(String) onEnter;
   final Function() onClose;
 
   const EnterPinDialog({
@@ -16,6 +16,7 @@ class EnterPinDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var pinCode = "";
     return Material(
       child: Container(
         color: Colors.white,
@@ -46,7 +47,9 @@ class EnterPinDialog extends StatelessWidget {
                     ),
                     SizedBox(height: 10.h),
                     AppPinput(
-                      onTextChanged: (pinCode) {},
+                      onTextChanged: (data) {
+                        pinCode = data;
+                      },
                     ),
                   ],
                 ),
@@ -63,7 +66,9 @@ class EnterPinDialog extends StatelessWidget {
                   child: Material(
                     color: Colors.white,
                     child: InkWell(
-                      onTap: onEnter,
+                      onTap: () {
+                        onEnter(pinCode);
+                      },
                       child: Container(
                         height: 40.h,
                         alignment: Alignment.center,

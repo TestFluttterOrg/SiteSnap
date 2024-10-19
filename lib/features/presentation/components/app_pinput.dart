@@ -38,6 +38,7 @@ class _AppPinputState extends State<AppPinput> {
   }
 
   void filterEnteredText(String val) {
+    widget.onTextChanged(val);
     switch(val.length) {
       case 0:
         setState(() {

@@ -7,6 +7,7 @@ enum UserUIEvent {
   initial,
   showEnterCode,
   goToNextPage,
+  hideDialog,
 }
 
 class UserBloc extends Cubit<UserState> {
@@ -43,6 +44,15 @@ class UserBloc extends Cubit<UserState> {
           inputData: text,
         ),
       );
+    }
+  }
+
+  void verifyCode(String code) async {
+    if (code.length == 6) {
+      emit(state.copyWith(event: UserUIEvent.hideDialog));
+      await Future.delayed(const Duration(milliseconds: 100));
+      emit(state.copyWith(event: UserUIEvent.goToNextPage));
+      emit(state.copyWith(event: UserUIEvent.initial));
     }
   }
 

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
+import 'package:sitesnap/core/routes/app_routes.dart';
 import 'package:sitesnap/features/presentation/components/app_button.dart';
 import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_icon.dart';
@@ -63,6 +65,9 @@ class _UserForm extends StatelessWidget {
           case UserUIEvent.goToNextPage:
             goToNextPage(context);
             break;
+          case UserUIEvent.hideDialog:
+            AppDialog.dismiss(context);
+            break;
           default:
             break;
         }
@@ -71,6 +76,7 @@ class _UserForm extends StatelessWidget {
   }
 
   void showEnterCodeDialog(BuildContext context) {
+    final bloc = context.read<UserBloc>();
     AppDialog.custom(
       context,
       barrierDismissible: false,
@@ -78,12 +84,16 @@ class _UserForm extends StatelessWidget {
         onClose: () {
           AppDialog.dismiss(context);
         },
-        onEnter: () {},
+        onEnter: (data) {
+          bloc.verifyCode(data);
+        },
       ),
     );
   }
 
-  void goToNextPage(BuildContext context) {}
+  void goToNextPage(BuildContext context) {
+    context.pushReplacement(AppRoutes.process);
+  }
 }
 
 class _IconView extends StatelessWidget {

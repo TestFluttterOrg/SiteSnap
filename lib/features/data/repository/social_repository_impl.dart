@@ -17,6 +17,13 @@ class SocialRepositoryImpl extends SocialRepository {
     if (result.isSuccess) {
       final list = result.data ?? [];
       final socialList = list.map((e) => e.mapToSocialModel()).toList();
+      //Others
+      socialList.add(
+        const SocialModel(
+          name: "Others",
+          isFromApi: false,
+        ),
+      );
       return Right(SuccessModel(data: socialList));
     } else {
       return Left(FailedModel(message: result.message));

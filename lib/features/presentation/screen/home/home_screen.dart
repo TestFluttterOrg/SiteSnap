@@ -184,15 +184,32 @@ class _IconView extends StatelessWidget {
             ),
             itemCount: list.length,
             itemBuilder: (context, index) {
-              return ClipRRect(
-                borderRadius: BorderRadius.circular(5.r),
-                child: CachedNetworkImage(
-                  imageUrl: list[index].iconUrl,
-                  width: 50.h,
-                  height: 50.h,
-                  fit: BoxFit.cover,
-                ),
-              );
+              final data = list[index];
+              if (data.isFromApi) {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(5.r),
+                  child: CachedNetworkImage(
+                    imageUrl: data.iconUrl,
+                    width: 50.h,
+                    height: 50.h,
+                    fit: BoxFit.cover,
+                  ),
+                );
+              } else {
+                return ClipRRect(
+                  borderRadius: BorderRadius.circular(5.r),
+                  child: Container(
+                    color: AppColors.yellowIconColor,
+                    width: 50.h,
+                    height: 50.h,
+                    child: Icon(
+                      Icons.exit_to_app,
+                      color: Colors.white,
+                      size: 40.h,
+                    ),
+                  ),
+                );
+              }
             },
           ),
         );

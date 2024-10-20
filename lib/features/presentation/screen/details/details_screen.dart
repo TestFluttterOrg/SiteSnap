@@ -26,11 +26,7 @@ class DetailsScreen extends StatelessWidget {
           color: Colors.white, // This will make the back arrow white
         ),
         backgroundColor: theme.primary,
-        systemOverlayStyle: const SystemUiOverlayStyle(
-          //statusBarColor: theme.secondary,
-          statusBarIconBrightness: Brightness.light,
-          statusBarBrightness: Brightness.light,
-        ),
+        systemOverlayStyle: AppUtility.getSystemOverlayStyle(),
         title: Text(
           data.name,
           style: TextStyle(

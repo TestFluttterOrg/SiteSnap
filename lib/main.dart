@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sitesnap/core/constants/app_constants.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/routes/routers.dart';
+import 'package:sitesnap/core/utility/app_utility.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
 import 'core/di/dependency_injection.dart' as di;
 
@@ -21,13 +22,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     // Set the status bar color
-    SystemChrome.setSystemUIOverlayStyle(
-      const SystemUiOverlayStyle(
-        statusBarColor: Colors.black26,
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.light,
-      ),
-    );
+    SystemChrome.setSystemUIOverlayStyle(AppUtility.getSystemOverlayStyle());
 
     return MultiBlocProvider(
       providers: [

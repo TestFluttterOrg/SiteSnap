@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sitesnap/core/constants/app_colors.dart';
+import 'package:sitesnap/core/utility/app_utility.dart';
 import 'package:sitesnap/features/presentation/components/app_dialog.dart';
 import 'package:sitesnap/features/presentation/components/app_scaffold.dart';
 import 'package:sitesnap/features/presentation/screen/home/home_screen.dart';
@@ -20,11 +21,7 @@ class MainScreen extends StatelessWidget {
       child: AppScaffold(
         appBar: AppBar(
           toolbarHeight: 0,
-          systemOverlayStyle: const SystemUiOverlayStyle(
-            //statusBarColor: AppColors.statusBarGrayColor,
-            statusBarIconBrightness: Brightness.light,
-            statusBarBrightness: Brightness.light,
-          ),
+          systemOverlayStyle: AppUtility.getSystemOverlayStyle(),
         ),
         backgroundColor: Colors.white,
         body: PageView(

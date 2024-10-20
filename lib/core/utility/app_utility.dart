@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:sitesnap/features/domain/model/theme_model.dart';
 
 class AppUtility {
@@ -9,6 +10,14 @@ class AppUtility {
   static bool isAlphanumeric(String input) {
     final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');
     return alphanumeric.hasMatch(input);
+  }
+
+  static SystemUiOverlayStyle getSystemOverlayStyle() {
+    return const SystemUiOverlayStyle(
+      statusBarColor: Colors.black26,
+      statusBarIconBrightness: Brightness.light,
+      statusBarBrightness: Brightness.light,
+    );
   }
 
   static ThemeModel determineThemeByName(String name) {

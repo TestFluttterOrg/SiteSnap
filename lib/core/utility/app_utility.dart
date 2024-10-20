@@ -39,7 +39,7 @@ class AppUtility {
         );
       default:
         return const ThemeModel(
-          primary: Color(0xffFFEB3B),
+          primary: Color(0xffFEBF03),
           secondary: Color(0xffFBC02D),
         );
     }

@@ -203,16 +203,22 @@ class _IconView extends StatelessWidget {
                   ),
                 );
               } else {
-                return ClipRRect(
+                return InkWell(
                   borderRadius: BorderRadius.circular(8.r),
-                  child: Container(
-                    color: AppColors.yellowIconColor,
-                    width: 50.h,
-                    height: 50.h,
-                    child: Icon(
-                      Icons.exit_to_app,
-                      color: Colors.white,
-                      size: 40.h,
+                  onTap: () {
+                    context.push(AppRoutes.others);
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: Container(
+                      color: AppColors.yellowIconColor,
+                      width: 50.h,
+                      height: 50.h,
+                      child: Icon(
+                        Icons.exit_to_app,
+                        color: Colors.white,
+                        size: 40.h,
+                      ),
                     ),
                   ),
                 );

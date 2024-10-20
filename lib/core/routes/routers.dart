@@ -3,6 +3,7 @@ import 'package:sitesnap/core/routes/app_routes.dart';
 import 'package:sitesnap/features/domain/model/social_model.dart';
 import 'package:sitesnap/features/presentation/screen/details/details_screen.dart';
 import 'package:sitesnap/features/presentation/screen/main/main_screen.dart';
+import 'package:sitesnap/features/presentation/screen/others/others_screen.dart';
 import 'package:sitesnap/features/presentation/screen/webview/webview_screen.dart';
 
 class Routes {
@@ -35,6 +36,14 @@ class Routes {
         builder: (_, state) {
           final data = state.extra as SocialModel;
           return WebViewScreen(data: data);
+        },
+      ),
+      //Others
+      GoRoute(
+        path: AppRoutes.others,
+        name: AppRoutes.others,
+        builder: (_, __) {
+          return const OthersScreen();
         },
       ),
     ],

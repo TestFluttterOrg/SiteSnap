@@ -10,6 +10,7 @@ class AppStrings {
   static const String cancel = "Cancel";
   static const String message = "Message";
   static const String logout = "Logout";
+  static const String visit = "Visit";
 
   static const String messageValueMustBeAlphaNumeric = "Values must be alphanumeric";
   static const String messageEnterUsername = "Please enter your username";

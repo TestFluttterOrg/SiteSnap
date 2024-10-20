@@ -31,4 +31,6 @@ class AppColors {
 
   static const Color yellowIconColor = Color(0xffFEBF03);
 
+  static const Color statusBarGrayColor = Color(0xffBDBDBD);
+
 }

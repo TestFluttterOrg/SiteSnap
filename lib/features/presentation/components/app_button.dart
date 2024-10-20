@@ -6,11 +6,13 @@ class AppButton extends StatelessWidget {
   final Function() onPressed;
   final String text;
   final bool isDisabled;
+  final Color? color;
 
   const AppButton({
     super.key,
     required this.onPressed,
     required this.text,
+    this.color,
     this.isDisabled = false,
   });
 
@@ -23,7 +25,7 @@ class AppButton extends StatelessWidget {
         onPressed: !isDisabled ? onPressed : null,
         style: ButtonStyle(
           backgroundColor: WidgetStateProperty.all(
-            isDisabled ? AppColors.buttonDisabledColor : AppColors.buttonEnabledColor,
+            isDisabled ? AppColors.buttonDisabledColor : color ?? AppColors.buttonEnabledColor,
           ),
           shape: WidgetStateProperty.all(
             RoundedRectangleBorder(

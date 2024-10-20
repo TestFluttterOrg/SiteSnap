@@ -7,6 +7,7 @@ import 'package:sitesnap/core/constants/app_assets.dart';
 import 'package:sitesnap/core/constants/app_colors.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
 import 'package:sitesnap/core/di/dependency_injection.dart' as di;
+import 'package:sitesnap/core/routes/app_routes.dart';
 import 'package:sitesnap/features/domain/model/process_param_model.dart';
 import 'package:sitesnap/features/presentation/screen/home/bloc/home_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/home/bloc/home_state.dart';
@@ -186,18 +187,24 @@ class _IconView extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = list[index];
               if (data.isFromApi) {
-                return ClipRRect(
-                  borderRadius: BorderRadius.circular(5.r),
-                  child: CachedNetworkImage(
-                    imageUrl: data.iconUrl,
-                    width: 50.h,
-                    height: 50.h,
-                    fit: BoxFit.cover,
+                return InkWell(
+                  borderRadius: BorderRadius.circular(8.r),
+                  onTap: () {
+                    context.push(AppRoutes.details, extra: data);
+                  },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.r),
+                    child: CachedNetworkImage(
+                      imageUrl: data.iconUrl,
+                      width: 50.h,
+                      height: 50.h,
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 );
               } else {
                 return ClipRRect(
-                  borderRadius: BorderRadius.circular(5.r),
+                  borderRadius: BorderRadius.circular(8.r),
                   child: Container(
                     color: AppColors.yellowIconColor,
                     width: 50.h,

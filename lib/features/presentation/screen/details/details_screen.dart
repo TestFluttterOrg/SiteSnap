@@ -2,7 +2,10 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sitesnap/core/constants/app_strings.dart';
+import 'package:sitesnap/core/routes/app_routes.dart';
+import 'package:sitesnap/core/routes/routers.dart';
 import 'package:sitesnap/core/utility/app_utility.dart';
 import 'package:sitesnap/features/domain/model/social_model.dart';
 import 'package:sitesnap/features/presentation/components/app_button.dart';
@@ -59,7 +62,9 @@ class DetailsScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 50.w),
               child: AppButton(
                 color: theme.primary,
-                onPressed: () {},
+                onPressed: () {
+                  context.push(AppRoutes.webView, extra: data);
+                },
                 text: "${AppStrings.visit} ${data.name}",
               ),
             ),

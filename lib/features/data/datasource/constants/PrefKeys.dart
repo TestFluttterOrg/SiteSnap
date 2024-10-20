@@ -2,5 +2,6 @@ class PrefKeys {
   PrefKeys._();
 
   static const username = "username";
-  static const userCode = "user_code";
+  static const userId = "user_id";
+  static const userImg = "user_img";
 }

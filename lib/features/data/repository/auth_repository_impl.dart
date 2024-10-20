@@ -25,17 +25,20 @@ class AuthRepositoryImpl extends AuthRepository {
     final data = LoginPayloadEntity(userName: username, otp: otp);
     final result = await authDataSource.login(data);
     if (result.isSuccess) {
-      final userCode = result.data ?? "";
+      final userCode = result.data?.userId ?? "";
+      final userImage = result.data?.profilePicture ?? "";
 
       //Save the username and userCode to local
       await sharedPrefDataSource.setData(PrefKeys.username, username);
-      await sharedPrefDataSource.setData(PrefKeys.userCode, userCode);
+      await sharedPrefDataSource.setData(PrefKeys.userId, userCode);
+      await sharedPrefDataSource.setData(PrefKeys.userImg, userImage);
 
       return Right(
         SuccessModel(
           data: UserModel(
             username: username,
-            userCode: userCode,
+            userId: userCode,
+            imgUrl: userImage,
           ),
         ),
       );
@@ -47,7 +50,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<void> logout() async {
     await sharedPrefDataSource.clearData(PrefKeys.username);
-    await sharedPrefDataSource.clearData(PrefKeys.userCode);
+    await sharedPrefDataSource.clearData(PrefKeys.userId);
+    await sharedPrefDataSource.clearData(PrefKeys.userImg);
     //Delay in 3 seconds to simulate an API call
     await Future.delayed(const Duration(seconds: 3));
   }
@@ -55,14 +59,16 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<UserModel?> getUser() async {
     final username = await sharedPrefDataSource.getData(PrefKeys.username) ?? "";
-    final userCode = await sharedPrefDataSource.getData(PrefKeys.userCode) ?? "";
+    final userId = await sharedPrefDataSource.getData(PrefKeys.userId) ?? "";
+    final userImg = await sharedPrefDataSource.getData(PrefKeys.userImg) ?? "";
 
-    if (username == "" || userCode == "") {
+    if (username == "" || userId == "") {
       return null;
     } else {
       return UserModel(
         username: username,
-        userCode: userCode,
+        userId: userId,
+        imgUrl: userImg,
       );
     }
   }

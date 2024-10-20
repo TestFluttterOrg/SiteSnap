@@ -8,7 +8,10 @@ part 'login_api_result_entity.freezed.dart';
 class LoginApiResultEntity with _$LoginApiResultEntity {
   factory LoginApiResultEntity({
     String? error,
-    String? success,
+    String? userId,
+    String? userName,
+    String? loginStatus,
+    String? profilePicture,
   }) = _LoginApiResultEntity;
 
   factory LoginApiResultEntity.fromJson(Map<String, dynamic> json) => _$LoginApiResultEntityFromJson(json);

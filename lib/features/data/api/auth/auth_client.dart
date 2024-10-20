@@ -12,5 +12,5 @@ abstract class AuthClient {
   factory AuthClient(Dio dio, {String baseUrl}) = _AuthClient;
 
   @POST('/api/v1/login')
-  Future<HttpResponse<LoginApiResultEntity>> login(@Body() data);
+  Future<HttpResponse<LoginApiResultEntity>> login(@Body() FormData data);
 }

@@ -120,10 +120,19 @@ class _UserHeaderView extends StatelessWidget {
             ),
             child: Row(
               children: [
-                SizedBox(
-                  height: 40.h,
-                  width: 40.h,
-                  child: const CircleAvatar(),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40.r),
+                  child: Container(
+                    color: Colors.blueAccent,
+                    height: 40.h,
+                    width: 40.h,
+                    child: CachedNetworkImage(
+                      imageUrl: userData.imgUrl,
+                      width: 40.h,
+                      height: 40.h,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ),
                 SizedBox(width: 13.w),
                 Column(
@@ -139,7 +148,7 @@ class _UserHeaderView extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      userData.userCode,
+                      userData.userId,
                       style: TextStyle(
                         color: AppColors.textGrayColor,
                         fontSize: 12.sp,

@@ -12,46 +12,27 @@ class AuthDataSourceImpl extends AuthDataSource {
   AuthDataSourceImpl({required this.client});
 
   @override
-  Future<ResultModel<String>> login(LoginPayloadEntity data) async {
-    /// Below should be the actual implementation of the login API.
-    /// Unfortunately, the login API is always returning an error response even if I completely followed the required headers and body.
-    /// Here is the return of the API:
-    /// {
-    ///     "error": "invalid username"
-    /// }
-    /*try {
-      final result = await client.login(data.toJson());
-      if (result.data.success != null) {
+  Future<ResultModel<LoginApiResultEntity>> login(LoginPayloadEntity data) async {
+    try {
+      FormData formData = FormData.fromMap(data.toJson());
+      final result = await client.login(formData);
+      if (result.data.loginStatus == "success") {
         return ResultModel(
           isSuccess: true,
-          data: result.data.success,
+          data: result.data,
         );
       }
-    } on DioException catch (e) {
-      if (e.response?.data != null) {
-        final result = LoginApiResultEntity.fromJson(e.response!.data);
-        if (result.error != null) {
-          return ResultModel(
-            isSuccess: false,
-            message: result.error!,
-          );
-        }
-      }
-    } catch (_) {}*/
-
-    /// To simulate the login API, I will create my own dummy implementation to check if the OTP is correct.
-    /// Based on the instructions, the valid OTPs are "123456" and "123123"
-
-    // Add a 3 seconds delay to simulate API call
-    await Future.delayed(const Duration(seconds: 3));
-
-    if (data.otp == "123456" || data.otp == "123123") {
-      return const ResultModel(
-        isSuccess: true,
-        data: "6713ac7b463be", //This is a dummy user code
-      );
-    }
-
+    } on DioException catch (_) {
+      // if (e.response?.data != null) {
+      //   final result = LoginApiResultEntity.fromJson(e.response!.data);
+      //   if (result.error != null) {
+      //     return ResultModel(
+      //       isSuccess: false,
+      //       message: result.error!,
+      //     );
+      //   }
+      // }
+    } catch (_) {}
     return const ResultModel(
       isSuccess: false,
       message: AppStrings.messageLoginFailed,

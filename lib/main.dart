@@ -21,6 +21,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
+    //Set to portrait mode
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
+
     // Set the status bar color
     SystemChrome.setSystemUIOverlayStyle(AppUtility.getSystemOverlayStyle());
 

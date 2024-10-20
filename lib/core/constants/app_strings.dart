@@ -12,6 +12,10 @@ class AppStrings {
   static const String logout = "Logout";
   static const String visit = "Visit";
   static const String others = "Others";
+  static const String samsung = "Samsung";
+  static const String windows = "Windows";
+  static const String apple = "Apple";
+  static const String website = "Website";
 
   static const String messageValueMustBeAlphaNumeric = "Values must be alphanumeric";
   static const String messageEnterUsername = "Please enter your username";
@@ -23,4 +27,5 @@ class AppStrings {
   static const String messageFetchingData = "Fetching Data";
   static const String messageLoginFailed = "Login Failed, please try again";
   static const String messageFailedToGetSocials = "Failed to get socials";
+  static const String messageYouMightAlsoLike = "You might also like";
 }

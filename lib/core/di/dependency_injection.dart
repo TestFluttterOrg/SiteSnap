@@ -11,11 +11,14 @@ import 'package:sitesnap/features/data/datasource/impl/social_datasource_impl.da
 import 'package:sitesnap/features/data/datasource/shared_pref_datasource.dart';
 import 'package:sitesnap/features/data/datasource/social_datasource.dart';
 import 'package:sitesnap/features/data/repository/auth_repository_impl.dart';
+import 'package:sitesnap/features/data/repository/brand_repository_impl.dart';
 import 'package:sitesnap/features/data/repository/social_repository_impl.dart';
 import 'package:sitesnap/features/domain/repository/auth_repository.dart';
+import 'package:sitesnap/features/domain/repository/brand_repository.dart';
 import 'package:sitesnap/features/domain/repository/social_repository.dart';
 import 'package:sitesnap/features/presentation/screen/home/bloc/home_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/main/bloc/main_bloc.dart';
+import 'package:sitesnap/features/presentation/screen/others/%20bloc/others_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/process/bloc/process_bloc.dart';
 import 'package:sitesnap/features/presentation/screen/user/bloc/user_bloc.dart';
 
@@ -47,6 +50,7 @@ Future<void> init() async {
       socialDataSource: vf.call(),
     ),
   );
+  vf.registerLazySingleton<BrandRepository>(() => BrandRepositoryImpl());
 
   //BLOC
   vf.registerLazySingleton<MainBloc>(() => MainBloc());
@@ -64,6 +68,11 @@ Future<void> init() async {
   vf.registerFactory<HomeBloc>(
     () => HomeBloc(
       authRepository: vf.call(),
+    ),
+  );
+  vf.registerFactory<OthersBloc>(
+    () => OthersBloc(
+      brandRepository: vf.call(),
     ),
   );
 }

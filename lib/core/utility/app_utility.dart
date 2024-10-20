@@ -3,9 +3,15 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:sitesnap/features/domain/model/theme_model.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AppUtility {
   AppUtility._();
+
+  static void launchWebUrl(String url) async {
+    final Uri uri = Uri.parse(url);
+    if (!await launchUrl(uri)) {}
+  }
 
   static bool isAlphanumeric(String input) {
     final alphanumeric = RegExp(r'^[a-zA-Z0-9]+$');

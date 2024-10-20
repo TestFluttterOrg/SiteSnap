@@ -25,6 +25,8 @@ class DetailsScreen extends StatelessWidget {
     return AppScaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
+        elevation: 5,
+        shadowColor: Colors.black45,
         iconTheme: const IconThemeData(
           color: Colors.white, // This will make the back arrow white
         ),
